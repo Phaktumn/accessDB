@@ -221,23 +221,23 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip ssInfo;
-        private System.Windows.Forms.MenuStrip msMenu;
-        private System.Windows.Forms.ToolStripMenuItem connectionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
+        public System.Windows.Forms.StatusStrip ssInfo;
+        public System.Windows.Forms.MenuStrip msMenu;
+        public System.Windows.Forms.ToolStripMenuItem connectionToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
         public System.Windows.Forms.DataGridView dgvData;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripConnectionStatus;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgress;
-        private System.Windows.Forms.ToolStripMenuItem queryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nomesAlunosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem todosAlunosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem todosDocentesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addInfoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem infoAlunoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox alunoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem complexQueryToolStripMenuItem;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.ToolStripStatusLabel toolStripConnectionStatus;
+        public System.Windows.Forms.ToolStripProgressBar toolStripProgress;
+        public System.Windows.Forms.ToolStripMenuItem queryToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem nomesAlunosToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem todosAlunosToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem todosDocentesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem addInfoToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem infoAlunoToolStripMenuItem;
+        public System.Windows.Forms.ToolStripComboBox alunoToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem complexQueryToolStripMenuItem;
+        public System.Windows.Forms.RichTextBox richTextBox1;
+        public System.Windows.Forms.Button button1;
     }
 }
 

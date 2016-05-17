@@ -95,5 +95,14 @@ namespace SQLAccess.Properties {
                 return ResourceManager.GetString("formMain_formMain_Debug", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to user.
+        /// </summary>
+        internal static string Login_Login_user {
+            get {
+                return ResourceManager.GetString("Login_Login_user", resourceCulture);
+            }
+        }
     }
 }

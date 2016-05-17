@@ -2,21 +2,19 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Data.Sql;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Versioning;
-using System.Text;
 using SQLAccess.Properties;
 
 namespace SQLAccess
 {
     public partial class formMain : Form
     {
-        private const string ConnectionString = "Data Source=DESKTOP-8QB55IV;Initial Catalog=IES2016;Integrated Security=True";
+        public string ConnectionString = "Data Source=DESKTOP-8QB55IV;Initial Catalog=IES2016;Integrated Security=True";
 
         private SqlConnection connection;
-        
+        public string ServerName;
+        public string UserId;
+        public string Pwd;
+        public string DatabaseName;
 
         public formMain()
         {
@@ -31,23 +29,13 @@ namespace SQLAccess
         private void formMain_Load(object sender, EventArgs e)
         {
             connection = new SqlConnection();
-            connection.ConnectionString = ConnectionString;
+            //connection.ConnectionString = ConnectionString;
         }
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                connection.Open();
-                toolStripConnectionStatus.Text = Resources.formMain_connectToolStripMenuItem_Click_Connected;
-                this.toolStripProgress.Step = 100;
-                this.toolStripProgress.PerformStep();
-                this.queryToolStripMenuItem.Enabled = true;
-            }
-            catch (Exception)
-            {
-                toolStripConnectionStatus.Text = Resources.formMain_connectToolStripMenuItem_Click_Connection_Failed;
-            }
+            Login logForm = new Login(this.connection, this);
+            logForm.Show();
         }
 
         private void formMain_FormClosing(object sender, FormClosingEventArgs e)
