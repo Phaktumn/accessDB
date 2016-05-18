@@ -115,6 +115,15 @@ namespace SQLAccess.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No File Selected.
+        /// </summary>
+        internal static string formMain_newQueryToolStripMenuItem_Click_No_File_Selected {
+            get {
+                return ResourceManager.GetString("formMain_newQueryToolStripMenuItem_Click_No_File_Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Database Name.
         /// </summary>
         internal static string Login_Login_DatabaseName_PlaceHolder {

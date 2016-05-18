@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMain));
             this.ssInfo = new System.Windows.Forms.StatusStrip();
             this.toolStripProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripConnectionStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -43,13 +45,26 @@
             this.complexQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.newQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.codeEditor = new ScintillaNET.Scintilla();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.ssInfo.SuspendLayout();
             this.msMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ssInfo
@@ -57,9 +72,9 @@
             this.ssInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgress,
             this.toolStripConnectionStatus});
-            this.ssInfo.Location = new System.Drawing.Point(0, 438);
+            this.ssInfo.Location = new System.Drawing.Point(0, 684);
             this.ssInfo.Name = "ssInfo";
-            this.ssInfo.Size = new System.Drawing.Size(617, 22);
+            this.ssInfo.Size = new System.Drawing.Size(882, 22);
             this.ssInfo.TabIndex = 0;
             this.ssInfo.Text = "Info Status Strip";
             // 
@@ -79,11 +94,10 @@
             this.msMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectionToolStripMenuItem,
             this.queryToolStripMenuItem,
-            this.addInfoToolStripMenuItem,
-            this.newQueryToolStripMenuItem});
+            this.addInfoToolStripMenuItem});
             this.msMenu.Location = new System.Drawing.Point(0, 0);
             this.msMenu.Name = "msMenu";
-            this.msMenu.Size = new System.Drawing.Size(617, 24);
+            this.msMenu.Size = new System.Drawing.Size(882, 24);
             this.msMenu.TabIndex = 1;
             this.msMenu.Text = "menuStrip1";
             // 
@@ -170,56 +184,119 @@
             this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.AllowUserToOrderColumns = true;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvData.Location = new System.Drawing.Point(0, 194);
+            this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvData.Location = new System.Drawing.Point(0, 0);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
-            this.dgvData.Size = new System.Drawing.Size(617, 241);
+            this.dgvData.Size = new System.Drawing.Size(882, 362);
             this.dgvData.TabIndex = 2;
             this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
             // 
-            // richTextBox1
+            // contextMenuStrip1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(0, 28);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(617, 160);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectAllToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(123, 26);
             // 
-            // button1
+            // selectAllToolStripMenuItem
             // 
-            this.button1.Location = new System.Drawing.Point(530, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // newQueryToolStripMenuItem
+            // splitContainer1
             // 
-            this.newQueryToolStripMenuItem.Name = "newQueryToolStripMenuItem";
-            this.newQueryToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.newQueryToolStripMenuItem.Text = "New Query";
-            this.newQueryToolStripMenuItem.Click += new System.EventHandler(this.newQueryToolStripMenuItem_Click);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.codeEditor);
+            this.splitContainer1.Panel1.Controls.Add(this.toolStrip1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.dgvData);
+            this.splitContainer1.Size = new System.Drawing.Size(882, 660);
+            this.splitContainer1.SplitterDistance = 294;
+            this.splitContainer1.TabIndex = 5;
+            // 
+            // codeEditor
+            // 
+            this.codeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codeEditor.Location = new System.Drawing.Point(0, 25);
+            this.codeEditor.Name = "codeEditor";
+            this.codeEditor.Size = new System.Drawing.Size(882, 269);
+            this.codeEditor.TabIndex = 5;
+            this.codeEditor.UseTabs = false;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
+            this.toolStripSeparator1,
+            this.toolStripButton2,
+            this.toolStripButton3});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(882, 25);
+            this.toolStrip1.TabIndex = 4;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(88, 22);
+            this.toolStripButton2.Text = "Load Query";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(86, 22);
+            this.toolStripButton3.Text = "Save Query";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(617, 460);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dgvData);
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.ClientSize = new System.Drawing.Size(882, 706);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.ssInfo);
             this.Controls.Add(this.msMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.HelpButton = true;
             this.MainMenuStrip = this.msMenu;
+            this.MaximumSize = new System.Drawing.Size(1920, 1080);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "formMain";
             this.Text = "SQL Access";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formMain_FormClosing);
@@ -229,6 +306,14 @@
             this.msMenu.ResumeLayout(false);
             this.msMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,10 +336,17 @@
         public System.Windows.Forms.ToolStripMenuItem infoAlunoToolStripMenuItem;
         public System.Windows.Forms.ToolStripComboBox alunoToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem complexQueryToolStripMenuItem;
-        public System.Windows.Forms.RichTextBox richTextBox1;
-        public System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ToolStripMenuItem newQueryToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private ScintillaNET.Scintilla codeEditor;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

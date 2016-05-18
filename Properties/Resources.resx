@@ -141,4 +141,7 @@
   <data name="formMain_formMain_Server_Files___sql______sql___All_Files____________" xml:space="preserve">
     <value>Server Files (.sql) | *.sql | All Files(*.*) | *.* </value>
   </data>
+  <data name="formMain_newQueryToolStripMenuItem_Click_No_File_Selected" xml:space="preserve">
+    <value>No File Selected</value>
+  </data>
 </root>

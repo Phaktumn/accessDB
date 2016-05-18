@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using Microsoft.Win32.SafeHandles;
+using ScintillaNET;
 using SQLAccess.Properties;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SQLAccess
 {
@@ -18,11 +14,10 @@ namespace SQLAccess
         public string ConnectionString = "Data Source=DESKTOP-8QB55IV;Initial Catalog=IES2016;Integrated Security=True";
 
         private SqlConnection connection;
-        public string ServerName;
-        public string UserId;
-        public string Pwd;
-        public string DatabaseName;
-        private List<Intel> intelStuff;
+        public string ServerName { get; set; }
+        public string UserId { get; set; }
+        public string Pwd { get; set; }
+        public string DatabaseName { get; set; }
         private Stream myStream;
 
         public formMain()
@@ -32,10 +27,10 @@ namespace SQLAccess
             toolStripProgress.Minimum = 0;
             this.toolStripProgress.Style = ProgressBarStyle.Blocks;
             this.queryToolStripMenuItem.Enabled = false;
-            this.button1.Text = Resources.formMain_formMain_Debug;
+            toolStripButton1.Text = Resources.formMain_formMain_Debug;
 
             openFileDialog1.FileName = "New Query.sql";
-            openFileDialog1.Filter = "Server Filesb(*.sql)|*.sql|All Files(*.*)|*.* ";
+            openFileDialog1.Filter = @"Server Files (*.sql)|*.sql|All Files(*.*)|*.* ";
         }
 
         private void formMain_Load(object sender, EventArgs e)
@@ -43,37 +38,25 @@ namespace SQLAccess
             connection = new SqlConnection();
             //connection.ConnectionString = ConnectionString;
 
-            string[] findG1 = { "Select", "From", "As", "Where", "Date", "DatePart" };
-            string[] findG2 = { "Avg", "Count", "Sum", "Dateiff", "Max" };
-            string[] findG3 = { "And" };
-            intelStuff = new List<Intel>();
+            codeEditor.StyleResetDefault();
+            codeEditor.Styles[ScintillaNET.Style.Default].Font = "Consolas";
+            codeEditor.Styles[ScintillaNET.Style.Default].Size = 12;
+            codeEditor.StyleClearAll();
 
-            foreach (string g1Word in findG1)
-            {
-                intelStuff.Add(new Intel
-                {
-                    intelWord = g1Word,
-                    wordType = IntelType.Group1
-                });
-            }
+            codeEditor.Styles[Style.Sql.Word].ForeColor = Color.FromArgb(86, 156, 214);
+            codeEditor.Styles[Style.Sql.Word].Bold = true;
+            codeEditor.Styles[Style.Sql.Identifier].ForeColor = Color.FromArgb(0, 0, 0);
+            codeEditor.Styles[Style.Sql.Character].ForeColor = Color.FromArgb(203, 65, 65);
+            codeEditor.Styles[Style.Sql.Number].ForeColor = Color.FromArgb(87, 166, 74);
+            codeEditor.Styles[Style.Sql.Operator].ForeColor = Color.FromArgb(129, 129, 129);
+            codeEditor.Styles[Style.Sql.Comment].ForeColor = Color.FromArgb(102, 116, 123);
+            codeEditor.Styles[Style.Sql.CommentLine].ForeColor = Color.FromArgb(102, 116, 123);
 
-            foreach (var g2Word in findG2)
-            {
-                intelStuff.Add(new Intel
-                {
-                    intelWord = g2Word,
-                    wordType = IntelType.Group2
-                });
-            }
+            codeEditor.Lexer = Lexer.Sql;
 
-            foreach (var g3Word in findG3)
-            {
-                intelStuff.Add(new Intel
-                {
-                    intelWord = g3Word,
-                    wordType = IntelType.Group3
-                });
-            }
+            codeEditor.SetKeywords(0, SqlKeywords.Keywords);
+
+            codeEditor.Margins[0].Width = 30;
         }
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,24 +146,27 @@ namespace SQLAccess
 
         public void CreateSqlText(string qString)
         {
-            richTextBox1.Clear();
+            codeEditor.Clear();
             var spliter = qString.Split();
             for (int i = 0; i < spliter.Length; i++)
             {
                 string word = spliter[i];
                 string variable = word;
                 if (string.Equals(variable, "FROM",
-                    StringComparison.CurrentCultureIgnoreCase)){
+                    StringComparison.CurrentCultureIgnoreCase))
+                {
                     variable = "\nFrom ";
                     spliter[i] = variable;
                 }
                 else if (string.Equals(variable, "Select",
-                    StringComparison.CurrentCultureIgnoreCase)){
+                    StringComparison.CurrentCultureIgnoreCase))
+                {
                     variable = "\nSelect ";
                     spliter[i] = variable;
                 }
                 else if (string.Equals(variable, "Where",
-                    StringComparison.CurrentCultureIgnoreCase)){
+                    StringComparison.CurrentCultureIgnoreCase))
+                {
                     variable = "\nWhere ";
                     spliter[i] = variable;
                 }
@@ -190,7 +176,7 @@ namespace SQLAccess
                     variable = "\nAnd ";
                     spliter[i] = variable;
                 }
-                richTextBox1.Text += spliter[i];
+                codeEditor.Text += spliter[i];
             }
         }
 
@@ -212,107 +198,79 @@ namespace SQLAccess
             CreateSqlText(qString);
         }
 
-        enum IntelType{
-            Group1,
-            Group2,
-            Group3
-        }
-
-        private struct Intel
-        {
-            public string intelWord;
-            public IntelType wordType;
-        }
-
-        private int currIndex = 0;
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            //Current Caret Position
-            currIndex = richTextBox1.SelectionStart;
-            foreach (Intel intel in intelStuff)
-            {
-                string intelWord = intel.intelWord.ToLower();
-                string text = richTextBox1.Text.ToLower();
-
-                if (text.Contains(intelWord))
-                {
-                    string matchString = Regex.Escape(intelWord);
-                    foreach (Match match in Regex.Matches(text, matchString))
-                    {
-                        if (intel.wordType == IntelType.Group1)
-                        {
-                            richTextBox1.Select(match.Index, intelWord.Length);
-                            richTextBox1.SelectionColor = Color.Blue;
-
-                            richTextBox1.Select(currIndex, 0);
-                            richTextBox1.SelectionColor = richTextBox1.ForeColor;
-                        }
-                        if (intel.wordType == IntelType.Group2)
-                        {
-                            richTextBox1.Select(match.Index, intelWord.Length);
-                            richTextBox1.SelectionColor = Color.DeepPink;
-
-                            richTextBox1.Select(currIndex, 0);
-                            richTextBox1.SelectionColor = richTextBox1.ForeColor;
-                        }
-                        if (intel.wordType == IntelType.Group3)
-                        {
-
-                            richTextBox1.Select(match.Index, intelWord.Length);
-                            richTextBox1.SelectionColor = Color.DarkGray;
-
-                            richTextBox1.Select(currIndex, 0);
-                            richTextBox1.SelectionColor = richTextBox1.ForeColor;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int selectCount = 0, specialCharCount = 0;
-            bool isSubQuerry = false, endQuery = false;
-            string customQuerySelectedText = null;
-            customQuerySelectedText = richTextBox1.SelectedText;
-            if (customQuerySelectedText == string.Empty)
-            {
-                string[] customQueryWords = richTextBox1.Text.Split();
-                foreach (string word in customQueryWords)
-                {
-                    if (word.ToLower() == "select" && selectCount >= 1){
-                        isSubQuerry = true;
-                    }
-                    if (word.ToLower() == "select"){
-                        selectCount++;
-                    }
-                    customQuerySelectedText += word + " ";
-                }
-                dgvData.DataSource = SendQuery(customQuerySelectedText);
-            }
-            else{
-                dgvData.DataSource = SendQuery(customQuerySelectedText);
-            }                        
-        }
-
         private void newQueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
-
-            using (myStream)
-            {
-                myStream = new FileStream(openFileDialog1.FileName, FileMode.Open);
-                StreamReader reader = new StreamReader(myStream);
-                richTextBox1.Text = reader.ReadToEnd();
-                reader.Close();
-                myStream.Close();
-            }
+            
         }
 
         private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeEditor.SelectAll();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            string customQuerySelectedText = null;
+            customQuerySelectedText = codeEditor.SelectedText;
+            dgvData.DataSource = SendQuery(customQuerySelectedText);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+            using (myStream)
+            {
+                try
+                {
+                    myStream = new FileStream(openFileDialog1.FileName, FileMode.Open);
+
+                    StreamReader reader = new StreamReader(myStream);
+                    codeEditor.Text = reader.ReadToEnd();
+                    reader.Close();
+                    myStream.Close();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(Resources.formMain_newQueryToolStripMenuItem_Click_No_File_Selected);
+                }
+            }
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.ShowDialog();
+            saveFileDialog1.CreatePrompt = true;
+          
+            using (myStream)
+            {
+                try
+                {
+                    StreamWriter writer = new StreamWriter(saveFileDialog1.OpenFile());
+                    writer.Write(codeEditor.Text);
+                    writer.Close();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(Resources.formMain_newQueryToolStripMenuItem_Click_No_File_Selected);
+                }
+            }
+        }
+
+        private void codeEditor_CharAdded(object sender, CharAddedEventArgs e)
+        {
+            var currentPos = codeEditor.CurrentPosition;
+            var wordStartPos = codeEditor.WordStartPosition(currentPos, true);
+
+            var lenEntered = currentPos - wordStartPos;
+            if (lenEntered > 0)
+            {
+                codeEditor.AutoCShow(lenEntered, SqlKeywords.Keywords.ToUpper());
+            }
         }
     }
 }
