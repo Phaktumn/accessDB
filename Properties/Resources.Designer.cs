@@ -88,11 +88,29 @@ namespace SQLAccess.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to *.sql.
+        /// </summary>
+        internal static string formMain_formMain__sql {
+            get {
+                return ResourceManager.GetString("formMain_formMain__sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debug.
         /// </summary>
         internal static string formMain_formMain_Debug {
             get {
                 return ResourceManager.GetString("formMain_formMain_Debug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Files (.sql) | *.sql | All Files(*.*) | *.* .
+        /// </summary>
+        internal static string formMain_formMain_Server_Files___sql______sql___All_Files____________ {
+            get {
+                return ResourceManager.GetString("formMain_formMain_Server_Files___sql______sql___All_Files____________", resourceCulture);
             }
         }
         

@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using Microsoft.Win32.SafeHandles;
 using SQLAccess.Properties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SQLAccess
 {
@@ -18,6 +22,8 @@ namespace SQLAccess
         public string UserId;
         public string Pwd;
         public string DatabaseName;
+        private List<Intel> intelStuff;
+        private Stream myStream;
 
         public formMain()
         {
@@ -27,12 +33,47 @@ namespace SQLAccess
             this.toolStripProgress.Style = ProgressBarStyle.Blocks;
             this.queryToolStripMenuItem.Enabled = false;
             this.button1.Text = Resources.formMain_formMain_Debug;
+
+            openFileDialog1.FileName = "New Query.sql";
+            openFileDialog1.Filter = "Server Filesb(*.sql)|*.sql|All Files(*.*)|*.* ";
         }
 
         private void formMain_Load(object sender, EventArgs e)
         {
             connection = new SqlConnection();
             //connection.ConnectionString = ConnectionString;
+
+            string[] findG1 = { "Select", "From", "As", "Where", "Date", "DatePart" };
+            string[] findG2 = { "Avg", "Count", "Sum", "Dateiff", "Max" };
+            string[] findG3 = { "And" };
+            intelStuff = new List<Intel>();
+
+            foreach (string g1Word in findG1)
+            {
+                intelStuff.Add(new Intel
+                {
+                    intelWord = g1Word,
+                    wordType = IntelType.Group1
+                });
+            }
+
+            foreach (var g2Word in findG2)
+            {
+                intelStuff.Add(new Intel
+                {
+                    intelWord = g2Word,
+                    wordType = IntelType.Group2
+                });
+            }
+
+            foreach (var g3Word in findG3)
+            {
+                intelStuff.Add(new Intel
+                {
+                    intelWord = g3Word,
+                    wordType = IntelType.Group3
+                });
+            }
         }
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -173,7 +214,8 @@ namespace SQLAccess
 
         enum IntelType{
             Group1,
-            Group2
+            Group2,
+            Group3
         }
 
         private struct Intel
@@ -182,44 +224,48 @@ namespace SQLAccess
             public IntelType wordType;
         }
 
+        private int currIndex = 0;
+
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            string[] findG1 = {"Select","From","As","Where", "Date","DatePart"};
-            string[] findG2 = { "Avg", "Count", "Sum","Dateiff", "Max"};
-            List<Intel> intelStuff = new List<Intel>();
-
-            foreach (string g1Word in findG1){ intelStuff.Add(new Intel{
-                intelWord =  g1Word, wordType = IntelType.Group1
-            }); }
-
-            foreach (var g2Word in findG2){ intelStuff.Add(new Intel{
-                intelWord = g2Word,
-                wordType = IntelType.Group2
-            } ); }
-
-            foreach (Intel intel in intelStuff){
+            //Current Caret Position
+            currIndex = richTextBox1.SelectionStart;
+            foreach (Intel intel in intelStuff)
+            {
                 string intelWord = intel.intelWord.ToLower();
-                if (richTextBox1.Text.ToLower().Contains(intelWord.ToLower())){
+                string text = richTextBox1.Text.ToLower();
+
+                if (text.Contains(intelWord))
+                {
                     string matchString = Regex.Escape(intelWord);
-                    foreach (Match match in Regex.Matches(richTextBox1.Text, 
-                        matchString)){
-                        if (intel.wordType == IntelType.Group1){
+                    foreach (Match match in Regex.Matches(text, matchString))
+                    {
+                        if (intel.wordType == IntelType.Group1)
+                        {
                             richTextBox1.Select(match.Index, intelWord.Length);
                             richTextBox1.SelectionColor = Color.Blue;
 
-                            richTextBox1.Select(richTextBox1.TextLength, 0);
+                            richTextBox1.Select(currIndex, 0);
                             richTextBox1.SelectionColor = richTextBox1.ForeColor;
                         }
-                        if (intel.wordType == IntelType.Group2){
+                        if (intel.wordType == IntelType.Group2)
+                        {
                             richTextBox1.Select(match.Index, intelWord.Length);
                             richTextBox1.SelectionColor = Color.DeepPink;
 
-                            richTextBox1.Select(richTextBox1.TextLength, 0);
+                            richTextBox1.Select(currIndex, 0);
+                            richTextBox1.SelectionColor = richTextBox1.ForeColor;
+                        }
+                        if (intel.wordType == IntelType.Group3)
+                        {
+
+                            richTextBox1.Select(match.Index, intelWord.Length);
+                            richTextBox1.SelectionColor = Color.DarkGray;
+
+                            richTextBox1.Select(currIndex, 0);
                             richTextBox1.SelectionColor = richTextBox1.ForeColor;
                         }
                     }
-                }
-                else{
                 }
             }
         }
@@ -248,6 +294,25 @@ namespace SQLAccess
             else{
                 dgvData.DataSource = SendQuery(customQuerySelectedText);
             }                        
+        }
+
+        private void newQueryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+
+            using (myStream)
+            {
+                myStream = new FileStream(openFileDialog1.FileName, FileMode.Open);
+                StreamReader reader = new StreamReader(myStream);
+                richTextBox1.Text = reader.ReadToEnd();
+                reader.Close();
+                myStream.Close();
+            }
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

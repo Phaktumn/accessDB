@@ -135,4 +135,10 @@
   <data name="Login_Login_DatabaseName_PlaceHolder" xml:space="preserve">
     <value>Database Name</value>
   </data>
+  <data name="formMain_formMain__sql" xml:space="preserve">
+    <value>*.sql</value>
+  </data>
+  <data name="formMain_formMain_Server_Files___sql______sql___All_Files____________" xml:space="preserve">
+    <value>Server Files (.sql) | *.sql | All Files(*.*) | *.* </value>
+  </data>
 </root>
