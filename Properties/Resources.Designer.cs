@@ -70,7 +70,7 @@ namespace SQLAccess.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connected.
+        ///   Looks up a localized string similar to Connected to.
         /// </summary>
         internal static string formMain_connectToolStripMenuItem_Click_Connected {
             get {
@@ -93,6 +93,24 @@ namespace SQLAccess.Properties {
         internal static string formMain_formMain_Debug {
             get {
                 return ResourceManager.GetString("formMain_formMain_Debug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database Name.
+        /// </summary>
+        internal static string Login_Login_DatabaseName_PlaceHolder {
+            get {
+                return ResourceManager.GetString("Login_Login_DatabaseName_PlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Name.
+        /// </summary>
+        internal static string Login_Login_serverName_PlaceHolder {
+            get {
+                return ResourceManager.GetString("Login_Login_serverName_PlaceHolder", resourceCulture);
             }
         }
         

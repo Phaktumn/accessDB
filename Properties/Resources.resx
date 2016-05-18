@@ -121,12 +121,18 @@
     <value>Connection Failed</value>
   </data>
   <data name="formMain_connectToolStripMenuItem_Click_Connected" xml:space="preserve">
-    <value>Connected</value>
+    <value>Connected to</value>
   </data>
   <data name="formMain_formMain_Debug" xml:space="preserve">
     <value>Debug</value>
   </data>
   <data name="Login_Login_user" xml:space="preserve">
     <value>user</value>
+  </data>
+  <data name="Login_Login_serverName_PlaceHolder" xml:space="preserve">
+    <value>Server Name</value>
+  </data>
+  <data name="Login_Login_DatabaseName_PlaceHolder" xml:space="preserve">
+    <value>Database Name</value>
   </data>
 </root>

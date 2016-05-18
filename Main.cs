@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using SQLAccess.Properties;
 
@@ -168,9 +171,57 @@ namespace SQLAccess
             CreateSqlText(qString);
         }
 
+        enum IntelType{
+            Group1,
+            Group2
+        }
+
+        private struct Intel
+        {
+            public string intelWord;
+            public IntelType wordType;
+        }
+
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
+            string[] findG1 = {"Select","From","As","Where", "Date","DatePart"};
+            string[] findG2 = { "Avg", "Count", "Sum","Dateiff", "Max"};
+            List<Intel> intelStuff = new List<Intel>();
 
+            foreach (string g1Word in findG1){ intelStuff.Add(new Intel{
+                intelWord =  g1Word, wordType = IntelType.Group1
+            }); }
+
+            foreach (var g2Word in findG2){ intelStuff.Add(new Intel{
+                intelWord = g2Word,
+                wordType = IntelType.Group2
+            } ); }
+
+            foreach (Intel intel in intelStuff){
+                string intelWord = intel.intelWord.ToLower();
+                if (richTextBox1.Text.ToLower().Contains(intelWord.ToLower())){
+                    string matchString = Regex.Escape(intelWord);
+                    foreach (Match match in Regex.Matches(richTextBox1.Text, 
+                        matchString)){
+                        if (intel.wordType == IntelType.Group1){
+                            richTextBox1.Select(match.Index, intelWord.Length);
+                            richTextBox1.SelectionColor = Color.Blue;
+
+                            richTextBox1.Select(richTextBox1.TextLength, 0);
+                            richTextBox1.SelectionColor = richTextBox1.ForeColor;
+                        }
+                        if (intel.wordType == IntelType.Group2){
+                            richTextBox1.Select(match.Index, intelWord.Length);
+                            richTextBox1.SelectionColor = Color.DeepPink;
+
+                            richTextBox1.Select(richTextBox1.TextLength, 0);
+                            richTextBox1.SelectionColor = richTextBox1.ForeColor;
+                        }
+                    }
+                }
+                else{
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
