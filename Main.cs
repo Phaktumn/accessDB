@@ -11,7 +11,8 @@ namespace SQLAccess
 {
     public partial class formMain : Form
     {
-        public string ConnectionString = "Data Source=DESKTOP-8QB55IV;Initial Catalog=IES2016;Integrated Security=True";
+        public string ConnectionString = 
+            "Data Source=DESKTOP-8QB55IV;Initial Catalog=IES2016;Integrated Security=True";
 
         private SqlConnection connection;
         public string ServerName { get; set; }
@@ -19,6 +20,7 @@ namespace SQLAccess
         public string Pwd { get; set; }
         public string DatabaseName { get; set; }
         private Stream myStream;
+        private Login logForm;
 
         public formMain()
         {
@@ -26,7 +28,6 @@ namespace SQLAccess
             toolStripProgress.Maximum = 100;
             toolStripProgress.Minimum = 0;
             this.toolStripProgress.Style = ProgressBarStyle.Blocks;
-            this.queryToolStripMenuItem.Enabled = false;
             toolStripButton1.Text = Resources.formMain_formMain_Debug;
 
             openFileDialog1.FileName = "New Query.sql";
@@ -36,6 +37,7 @@ namespace SQLAccess
         private void formMain_Load(object sender, EventArgs e)
         {
             connection = new SqlConnection();
+
             //connection.ConnectionString = ConnectionString;
 
             codeEditor.StyleResetDefault();
@@ -61,7 +63,7 @@ namespace SQLAccess
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Login logForm = new Login(this.connection, this);
+            logForm = new Login(this.connection, this);
             logForm.Show();
         }
 
@@ -93,28 +95,6 @@ namespace SQLAccess
 
         }
 
-        private void nomesAlunosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string qString = "SELECT Aluno.Nome FROM Aluno";
-            dgvData.DataSource = SendQuery(qString);
-            CreateSqlText(qString);
-        }
-
-        private void todosAlunosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string qString = "SELECT * FROM Aluno";
-            dgvData.DataSource = SendQuery(qString);
-            CreateSqlText(qString);
-        }
-
-
-        private void todosDocentesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string qString = "SELECT * FROM Docente";
-            dgvData.DataSource = SendQuery(qString);
-            CreateSqlText(qString);
-        }
-
         public string RetrieveAluno(string fName)
         {
             string aux = null;
@@ -137,70 +117,6 @@ namespace SQLAccess
         private void addInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void alunoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
- 
-        }
-
-        public void CreateSqlText(string qString)
-        {
-            codeEditor.Clear();
-            var spliter = qString.Split();
-            for (int i = 0; i < spliter.Length; i++)
-            {
-                string word = spliter[i];
-                string variable = word;
-                if (string.Equals(variable, "FROM",
-                    StringComparison.CurrentCultureIgnoreCase))
-                {
-                    variable = "\nFrom ";
-                    spliter[i] = variable;
-                }
-                else if (string.Equals(variable, "Select",
-                    StringComparison.CurrentCultureIgnoreCase))
-                {
-                    variable = "\nSelect ";
-                    spliter[i] = variable;
-                }
-                else if (string.Equals(variable, "Where",
-                    StringComparison.CurrentCultureIgnoreCase))
-                {
-                    variable = "\nWhere ";
-                    spliter[i] = variable;
-                }
-                else if (string.Equals(variable, "And",
-                    StringComparison.CurrentCultureIgnoreCase))
-                {
-                    variable = "\nAnd ";
-                    spliter[i] = variable;
-                }
-                codeEditor.Text += spliter[i];
-            }
-        }
-
-        private void complexQueryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string qString ="select Aluno.Nome, Nota " +
-            "from Aluno, Inscricao, DS, Disciplina " +
-            "Where Inscricao.DSid = DS.DSid " +
-            "and DS.DISCid = Disciplina.DISCid " +
-            "and Aluno.Nid = Inscricao.Nid " +
-            "and disciplina.nome = 'Armazenamento e Acesso a Dados' " +
-            "and Nota = (select max(Nota) " +
-            "from Aluno, Inscricao, DS, Disciplina " +
-            "Where Inscricao.DSid = DS.DSid " +
-            "and DS.DISCid = Disciplina.DISCid " +
-            "and Aluno.Nid = Inscricao.Nid " +
-            "and disciplina.nome = 'Armazenamento e Acesso a Dados')";
-            dgvData.DataSource = SendQuery(qString);
-            CreateSqlText(qString);
-        }
-
-        private void newQueryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
@@ -265,12 +181,33 @@ namespace SQLAccess
         {
             var currentPos = codeEditor.CurrentPosition;
             var wordStartPos = codeEditor.WordStartPosition(currentPos, true);
-
+            
             var lenEntered = currentPos - wordStartPos;
             if (lenEntered > 0)
             {
                 codeEditor.AutoCShow(lenEntered, SqlKeywords.Keywords.ToUpper());
             }
+        }
+
+
+        private void toolStripComboBox1_Click(object sender, EventArgs e)
+        {
+            if(connection.State == ConnectionState.Closed) return;
+            DatabaseName = toolStripComboBox1.SelectedItem.ToString();
+            logForm.ChangeDatabase(toolStripComboBox1.SelectedItem.ToString());
+            toolStripConnectionStatus.Text = $"{Resources.formMain_connectToolStripMenuItem_Click_Connected} " +
+                    $"{DatabaseName} " +
+                    $"{connection.ServerVersion}";
+        }
+
+        private void queriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sELECTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DataTable table = SendQuery("");
         }
     }
 }

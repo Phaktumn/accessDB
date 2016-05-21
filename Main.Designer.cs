@@ -36,14 +36,10 @@
             this.msMenu = new System.Windows.Forms.MenuStrip();
             this.connectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.queryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nomesAlunosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.todosAlunosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.todosDocentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.infoAlunoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.alunoToolStripMenuItem = new System.Windows.Forms.ToolStripComboBox();
-            this.complexQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.queriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sELECTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvData = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +52,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.ssInfo.SuspendLayout();
             this.msMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -93,11 +90,12 @@
             // 
             this.msMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectionToolStripMenuItem,
-            this.queryToolStripMenuItem,
-            this.addInfoToolStripMenuItem});
+            this.addInfoToolStripMenuItem,
+            this.toolStripComboBox1,
+            this.queriesToolStripMenuItem});
             this.msMenu.Location = new System.Drawing.Point(0, 0);
             this.msMenu.Name = "msMenu";
-            this.msMenu.Size = new System.Drawing.Size(882, 24);
+            this.msMenu.Size = new System.Drawing.Size(882, 27);
             this.msMenu.TabIndex = 1;
             this.msMenu.Text = "menuStrip1";
             // 
@@ -106,7 +104,7 @@
             this.connectionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectToolStripMenuItem});
             this.connectionToolStripMenuItem.Name = "connectionToolStripMenuItem";
-            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(67, 23);
             this.connectionToolStripMenuItem.Text = "Database";
             // 
             // connectToolStripMenuItem
@@ -116,67 +114,34 @@
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
-            // queryToolStripMenuItem
-            // 
-            this.queryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nomesAlunosToolStripMenuItem,
-            this.todosAlunosToolStripMenuItem,
-            this.todosDocentesToolStripMenuItem,
-            this.infoAlunoToolStripMenuItem,
-            this.complexQueryToolStripMenuItem});
-            this.queryToolStripMenuItem.Name = "queryToolStripMenuItem";
-            this.queryToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.queryToolStripMenuItem.Text = "Query";
-            // 
-            // nomesAlunosToolStripMenuItem
-            // 
-            this.nomesAlunosToolStripMenuItem.Name = "nomesAlunosToolStripMenuItem";
-            this.nomesAlunosToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.nomesAlunosToolStripMenuItem.Text = "Nomes Alunos";
-            this.nomesAlunosToolStripMenuItem.Click += new System.EventHandler(this.nomesAlunosToolStripMenuItem_Click);
-            // 
-            // todosAlunosToolStripMenuItem
-            // 
-            this.todosAlunosToolStripMenuItem.Name = "todosAlunosToolStripMenuItem";
-            this.todosAlunosToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.todosAlunosToolStripMenuItem.Text = "Todos Alunos";
-            this.todosAlunosToolStripMenuItem.Click += new System.EventHandler(this.todosAlunosToolStripMenuItem_Click);
-            // 
-            // todosDocentesToolStripMenuItem
-            // 
-            this.todosDocentesToolStripMenuItem.Name = "todosDocentesToolStripMenuItem";
-            this.todosDocentesToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.todosDocentesToolStripMenuItem.Text = "Todos Docentes";
-            this.todosDocentesToolStripMenuItem.Click += new System.EventHandler(this.todosDocentesToolStripMenuItem_Click);
-            // 
-            // infoAlunoToolStripMenuItem
-            // 
-            this.infoAlunoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.alunoToolStripMenuItem});
-            this.infoAlunoToolStripMenuItem.Name = "infoAlunoToolStripMenuItem";
-            this.infoAlunoToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.infoAlunoToolStripMenuItem.Text = "Info Aluno";
-            // 
-            // alunoToolStripMenuItem
-            // 
-            this.alunoToolStripMenuItem.Name = "alunoToolStripMenuItem";
-            this.alunoToolStripMenuItem.Size = new System.Drawing.Size(152, 23);
-            this.alunoToolStripMenuItem.Text = "Aluno";
-            this.alunoToolStripMenuItem.Click += new System.EventHandler(this.alunoToolStripMenuItem_Click);
-            // 
-            // complexQueryToolStripMenuItem
-            // 
-            this.complexQueryToolStripMenuItem.Name = "complexQueryToolStripMenuItem";
-            this.complexQueryToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.complexQueryToolStripMenuItem.Text = "Complex Query";
-            this.complexQueryToolStripMenuItem.Click += new System.EventHandler(this.complexQueryToolStripMenuItem_Click);
-            // 
             // addInfoToolStripMenuItem
             // 
             this.addInfoToolStripMenuItem.Name = "addInfoToolStripMenuItem";
-            this.addInfoToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.addInfoToolStripMenuItem.Size = new System.Drawing.Size(65, 23);
             this.addInfoToolStripMenuItem.Text = "Add Info";
             this.addInfoToolStripMenuItem.Click += new System.EventHandler(this.addInfoToolStripMenuItem_Click);
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            this.toolStripComboBox1.Click += new System.EventHandler(this.toolStripComboBox1_Click);
+            // 
+            // queriesToolStripMenuItem
+            // 
+            this.queriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sELECTToolStripMenuItem});
+            this.queriesToolStripMenuItem.Name = "queriesToolStripMenuItem";
+            this.queriesToolStripMenuItem.Size = new System.Drawing.Size(59, 23);
+            this.queriesToolStripMenuItem.Text = "Queries";
+            this.queriesToolStripMenuItem.Click += new System.EventHandler(this.queriesToolStripMenuItem_Click);
+            // 
+            // sELECTToolStripMenuItem
+            // 
+            this.sELECTToolStripMenuItem.Name = "sELECTToolStripMenuItem";
+            this.sELECTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sELECTToolStripMenuItem.Text = "SELECT";
+            this.sELECTToolStripMenuItem.Click += new System.EventHandler(this.sELECTToolStripMenuItem_Click);
             // 
             // dgvData
             // 
@@ -188,7 +153,7 @@
             this.dgvData.Location = new System.Drawing.Point(0, 0);
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
-            this.dgvData.Size = new System.Drawing.Size(882, 362);
+            this.dgvData.Size = new System.Drawing.Size(882, 361);
             this.dgvData.TabIndex = 2;
             this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
             // 
@@ -214,7 +179,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -226,8 +191,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvData);
-            this.splitContainer1.Size = new System.Drawing.Size(882, 660);
-            this.splitContainer1.SplitterDistance = 294;
+            this.splitContainer1.Size = new System.Drawing.Size(882, 657);
+            this.splitContainer1.SplitterDistance = 292;
             this.splitContainer1.TabIndex = 5;
             // 
             // codeEditor
@@ -235,7 +200,7 @@
             this.codeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.codeEditor.Location = new System.Drawing.Point(0, 25);
             this.codeEditor.Name = "codeEditor";
-            this.codeEditor.Size = new System.Drawing.Size(882, 269);
+            this.codeEditor.Size = new System.Drawing.Size(882, 267);
             this.codeEditor.TabIndex = 5;
             this.codeEditor.UseTabs = false;
             // 
@@ -283,6 +248,16 @@
             this.toolStripButton3.Text = "Save Query";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,14 +303,7 @@
         public System.Windows.Forms.DataGridView dgvData;
         public System.Windows.Forms.ToolStripStatusLabel toolStripConnectionStatus;
         public System.Windows.Forms.ToolStripProgressBar toolStripProgress;
-        public System.Windows.Forms.ToolStripMenuItem queryToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem nomesAlunosToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem todosAlunosToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem todosDocentesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem addInfoToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem infoAlunoToolStripMenuItem;
-        public System.Windows.Forms.ToolStripComboBox alunoToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem complexQueryToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -347,6 +315,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        public System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripMenuItem queriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sELECTToolStripMenuItem;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
     }
 }
 
