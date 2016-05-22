@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -32,6 +33,9 @@ namespace SQLAccess
 
             openFileDialog1.FileName = "New Query.sql";
             openFileDialog1.Filter = @"Server Files (*.sql)|*.sql|All Files(*.*)|*.* ";
+
+            saveFileDialog1.FileName = "NewQuery.sql";
+            saveFileDialog1.Filter = @"Server Files (*.sql)|*.sql|All Files(*.*)|*.* ";
         }
 
         private void formMain_Load(object sender, EventArgs e)
@@ -207,7 +211,29 @@ namespace SQLAccess
 
         private void sELECTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DataTable table = SendQuery("");
+            
+        }
+
+        private void iNSERTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStripComboBox2.Items.Add(ListTables());
+        }
+
+        private void toolStripComboBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private IList<string> ListTables()
+        {
+            List<string> tables = new List<string>();
+            DataTable table = connection.GetSchema("Tables");
+            foreach (DataRow dataRow in table.Rows)
+            {
+                string data = (string)dataRow[2];
+                tables.Add(data);
+            }
+            return tables;
         }
     }
 }

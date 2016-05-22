@@ -53,6 +53,8 @@
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.iNSERTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.ssInfo.SuspendLayout();
             this.msMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -130,7 +132,8 @@
             // queriesToolStripMenuItem
             // 
             this.queriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sELECTToolStripMenuItem});
+            this.sELECTToolStripMenuItem,
+            this.iNSERTToolStripMenuItem});
             this.queriesToolStripMenuItem.Name = "queriesToolStripMenuItem";
             this.queriesToolStripMenuItem.Size = new System.Drawing.Size(59, 23);
             this.queriesToolStripMenuItem.Text = "Queries";
@@ -139,7 +142,7 @@
             // sELECTToolStripMenuItem
             // 
             this.sELECTToolStripMenuItem.Name = "sELECTToolStripMenuItem";
-            this.sELECTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sELECTToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.sELECTToolStripMenuItem.Text = "SELECT";
             this.sELECTToolStripMenuItem.Click += new System.EventHandler(this.sELECTToolStripMenuItem_Click);
             // 
@@ -258,6 +261,21 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // iNSERTToolStripMenuItem
+            // 
+            this.iNSERTToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox2});
+            this.iNSERTToolStripMenuItem.Name = "iNSERTToolStripMenuItem";
+            this.iNSERTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iNSERTToolStripMenuItem.Text = "INSERT INTO";
+            this.iNSERTToolStripMenuItem.Click += new System.EventHandler(this.iNSERTToolStripMenuItem_Click);
+            // 
+            // toolStripComboBox2
+            // 
+            this.toolStripComboBox2.Name = "toolStripComboBox2";
+            this.toolStripComboBox2.Size = new System.Drawing.Size(121, 23);
+            this.toolStripComboBox2.Click += new System.EventHandler(this.toolStripComboBox2_Click);
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,6 +337,8 @@
         private System.Windows.Forms.ToolStripMenuItem queriesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sELECTToolStripMenuItem;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.ToolStripMenuItem iNSERTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
     }
 }
 

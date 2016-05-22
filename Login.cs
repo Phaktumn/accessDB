@@ -59,7 +59,8 @@ namespace SQLAccess
 
             DataTable table = mainForm.SendQuery("Select name from sys.databases");
             mainForm.toolStripComboBox1.Items.Clear();
-            foreach (DataRow row in table.Rows){
+            foreach (DataRow row in table.Rows)
+            {
                 mainForm.toolStripComboBox1.Items.Add(row[0]);
             }
             Close();
@@ -101,6 +102,16 @@ namespace SQLAccess
                 MessageBox.Show(@"Failed to change Database.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error,
                     MessageBoxDefaultButton.Button1);
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
