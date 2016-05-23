@@ -70,6 +70,16 @@ namespace SQLAccess.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ball_hd {
+            get {
+                object obj = ResourceManager.GetObject("ball-hd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connected to.
         /// </summary>
         internal static string formMain_connectToolStripMenuItem_Click_Connected {

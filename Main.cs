@@ -23,13 +23,21 @@ namespace SQLAccess
         private Stream myStream;
         private Login logForm;
 
+        private DataTable CurrentTableInfo { get; set; }
+        private string CurrentTableSelected { get; set; }
+        private SqlDataAdapter da { get; set; }
+        private DataTable dt { get; set; }
+
         public formMain()
         {
+            this.da = new SqlDataAdapter();
+            this.dt = new DataTable();
             InitializeComponent();
             toolStripProgress.Maximum = 100;
             toolStripProgress.Minimum = 0;
             this.toolStripProgress.Style = ProgressBarStyle.Blocks;
             toolStripButton1.Text = Resources.formMain_formMain_Debug;
+            
 
             openFileDialog1.FileName = "New Query.sql";
             openFileDialog1.Filter = @"Server Files (*.sql)|*.sql|All Files(*.*)|*.* ";
@@ -78,8 +86,8 @@ namespace SQLAccess
 
         public DataTable SendQuery(string query)
         {
-            DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(query, connection);
+            dt = new DataTable();
+            da = new SqlDataAdapter(query, connection);
 
             try
             {
@@ -196,12 +204,7 @@ namespace SQLAccess
 
         private void toolStripComboBox1_Click(object sender, EventArgs e)
         {
-            if(connection.State == ConnectionState.Closed) return;
-            DatabaseName = toolStripComboBox1.SelectedItem.ToString();
-            logForm.ChangeDatabase(toolStripComboBox1.SelectedItem.ToString());
-            toolStripConnectionStatus.Text = $"{Resources.formMain_connectToolStripMenuItem_Click_Connected} " +
-                    $"{DatabaseName} " +
-                    $"{connection.ServerVersion}";
+            
         }
 
         private void queriesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -211,12 +214,18 @@ namespace SQLAccess
 
         private void sELECTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            toolStripComboBox3.Items.Clear();
+            foreach (var stg in ListTables()){
+                toolStripComboBox3.Items.Add(stg);
+            }
         }
 
         private void iNSERTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStripComboBox2.Items.Add(ListTables());
+            toolStripComboBox2.Items.Clear();
+            foreach (var stg in ListTables()){
+                toolStripComboBox2.Items.Add(stg);
+            }
         }
 
         private void toolStripComboBox2_Click(object sender, EventArgs e)
@@ -234,6 +243,45 @@ namespace SQLAccess
                 tables.Add(data);
             }
             return tables;
+        }
+
+        private void toolStripComboBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripComboBox3_DropDownClosed(object sender, EventArgs e)
+        {
+            if (toolStripComboBox3.SelectedItem != null)
+            {
+                string query = "SELECT * FROM " + toolStripComboBox3.SelectedItem;
+                CurrentTableSelected = (string) toolStripComboBox3.SelectedItem;
+                dgvData.DataSource = SendQuery(query);
+                codeEditor.Text += $"\n{query}";
+            }
+        }
+
+        private void toolStripComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripComboBox1_DropDownClosed(object sender, EventArgs e)
+        {
+            if (connection.State == ConnectionState.Closed) return;
+            if (toolStripComboBox1.SelectedItem != null)
+            {
+                DatabaseName = toolStripComboBox1.SelectedItem.ToString();
+                logForm.ChangeDatabase(toolStripComboBox1.SelectedItem.ToString());
+                toolStripConnectionStatus.Text = $"{Resources.formMain_connectToolStripMenuItem_Click_Connected} " +
+                                                 $"{DatabaseName} " +
+                                                 $"{connection.ServerVersion}";
+            }
+        }
+
+        private void Editable_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
