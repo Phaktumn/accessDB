@@ -59,6 +59,7 @@
             this.Editable = new System.Windows.Forms.ToolStripButton();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.ssInfo.SuspendLayout();
             this.msMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -68,6 +69,9 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ssInfo
@@ -75,9 +79,9 @@
             this.ssInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgress,
             this.toolStripConnectionStatus});
-            this.ssInfo.Location = new System.Drawing.Point(0, 684);
+            this.ssInfo.Location = new System.Drawing.Point(0, 550);
             this.ssInfo.Name = "ssInfo";
-            this.ssInfo.Size = new System.Drawing.Size(882, 22);
+            this.ssInfo.Size = new System.Drawing.Size(821, 22);
             this.ssInfo.TabIndex = 0;
             this.ssInfo.Text = "Info Status Strip";
             // 
@@ -101,7 +105,7 @@
             this.queriesToolStripMenuItem});
             this.msMenu.Location = new System.Drawing.Point(0, 0);
             this.msMenu.Name = "msMenu";
-            this.msMenu.Size = new System.Drawing.Size(882, 27);
+            this.msMenu.Size = new System.Drawing.Size(821, 27);
             this.msMenu.TabIndex = 1;
             this.msMenu.Text = "menuStrip1";
             // 
@@ -190,7 +194,7 @@
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvData.Location = new System.Drawing.Point(0, 0);
             this.dgvData.Name = "dgvData";
-            this.dgvData.Size = new System.Drawing.Size(882, 361);
+            this.dgvData.Size = new System.Drawing.Size(821, 258);
             this.dgvData.TabIndex = 2;
             this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
             // 
@@ -227,9 +231,9 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dgvData);
-            this.splitContainer1.Size = new System.Drawing.Size(882, 657);
-            this.splitContainer1.SplitterDistance = 292;
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(821, 523);
+            this.splitContainer1.SplitterDistance = 232;
             this.splitContainer1.TabIndex = 5;
             // 
             // codeEditor
@@ -237,7 +241,7 @@
             this.codeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.codeEditor.Location = new System.Drawing.Point(0, 25);
             this.codeEditor.Name = "codeEditor";
-            this.codeEditor.Size = new System.Drawing.Size(882, 267);
+            this.codeEditor.Size = new System.Drawing.Size(821, 207);
             this.codeEditor.TabIndex = 5;
             this.codeEditor.UseTabs = false;
             // 
@@ -252,7 +256,7 @@
             this.Editable});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(882, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(821, 25);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -312,12 +316,27 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.dgvData);
+            this.splitContainer2.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
+            this.splitContainer2.Size = new System.Drawing.Size(821, 287);
+            this.splitContainer2.SplitterDistance = 258;
+            this.splitContainer2.TabIndex = 3;
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(882, 706);
+            this.ClientSize = new System.Drawing.Size(821, 572);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.ssInfo);
             this.Controls.Add(this.msMenu);
@@ -343,6 +362,9 @@
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -379,6 +401,7 @@
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton Editable;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
 

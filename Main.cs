@@ -57,14 +57,14 @@ namespace SQLAccess
             codeEditor.Styles[ScintillaNET.Style.Default].Size = 12;
             codeEditor.StyleClearAll();
 
-            codeEditor.Styles[Style.Sql.Word].ForeColor = Color.FromArgb(86, 156, 214);
+            codeEditor.Styles[Style.Sql.Word].ForeColor = Color.Blue;
             codeEditor.Styles[Style.Sql.Word].Bold = true;
-            codeEditor.Styles[Style.Sql.Identifier].ForeColor = Color.FromArgb(0, 0, 0);
-            codeEditor.Styles[Style.Sql.Character].ForeColor = Color.FromArgb(203, 65, 65);
-            codeEditor.Styles[Style.Sql.Number].ForeColor = Color.FromArgb(87, 166, 74);
-            codeEditor.Styles[Style.Sql.Operator].ForeColor = Color.FromArgb(129, 129, 129);
-            codeEditor.Styles[Style.Sql.Comment].ForeColor = Color.FromArgb(102, 116, 123);
-            codeEditor.Styles[Style.Sql.CommentLine].ForeColor = Color.FromArgb(102, 116, 123);
+            codeEditor.Styles[Style.Sql.Identifier].ForeColor = Color.Black;
+            codeEditor.Styles[Style.Sql.Character].ForeColor = Color.Red;
+            codeEditor.Styles[Style.Sql.Number].ForeColor = Color.Green;
+            codeEditor.Styles[Style.Sql.Operator].ForeColor = Color.DimGray;
+            codeEditor.Styles[Style.Sql.Comment].ForeColor = Color.DimGray;
+            codeEditor.Styles[Style.Sql.CommentLine].ForeColor = Color.DimGray;
 
             codeEditor.Lexer = Lexer.Sql;
 
@@ -282,6 +282,11 @@ namespace SQLAccess
         private void Editable_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
